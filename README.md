@@ -10,7 +10,7 @@
 - 保留人物、服装、道具与空间连续性，检查每段的观看价值与情绪推进。
 - 根据具体入口核实可选时长、音频与参考能力；5／10／15秒是目标长度，不代表所有模型均支持。
 
-完整规则见 [SKILL.md](SKILL.md)。本项目为规则型技能，不包含视频生成程序或API客户端；实际生成按所用工具的能力执行。
+完整规则见 [SKILL.md](SKILL.md)。项目包含源内容到提示词的交付检查脚本，不包含视频生成程序或API客户端；实际生成按所用工具的能力执行。
 
 此版本在已有技能基础上增加了 Seedance 2.0 Mini、MiniMax H3 Max 提示词规划和 5 秒目标分段支持；也支持按 10 或 15 秒目标长度规划。具体修改范围与来源边界见[来源记录](PROVENANCE.md)。
 
@@ -50,8 +50,12 @@ $muse-video-prompt-director
 |---|---|
 | [SKILL.md](SKILL.md) | 原始技能定义及工作规则 |
 | [PROVENANCE.md](PROVENANCE.md) | 本次导入来源与原文校验值 |
+| [references/source-delivery.md](references/source-delivery.md) | 剧本及导演稿逐项追踪与检查格式 |
+| [scripts/validate_source_delivery.py](scripts/validate_source_delivery.py) | 校验独立源清单、成品正文和逐项映射 |
 | [.gitignore](.gitignore) | 本地缓存与敏感配置忽略规则 |
 
 ## 维护
 
 修改时优先保留用户已确认的剧情与设定。提交前检查相对链接、技能名称与描述、分段时长及未验证能力的表述。本次建仓导入的是此前已扩展过的本地版本，导入时未再修改SKILL.md；未推断第三方来源或授权条款，用户未指定开源许可证。
+
+剧本或导演稿转提示词时，先人工逐项建立独立源清单和成品映射，再运行 `python scripts/validate_source_delivery.py --source source.json --delivery delivery.json`。该检查不能证明人工源清单完整或判断改写语义，仍须与原文件及时间轴复核。
